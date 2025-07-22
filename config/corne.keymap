@@ -5,54 +5,206 @@
  */
 
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
 
 #include "keys_de.h"
+#include "42.h"
+
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4
+#define THUMBS_L LH2 LH1 LH0
+#define THUMBS_R LH2 LH1 LH0
+
+#define DEF 0
+#define SYM 1
+#define NAV 2
+#define SYS 3
+
+#define QUICK_TAP_MS 175
+
+&lt {
+  flavor = "balanced";
+  tapping-term-ms = <200>;
+  quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+&caps_word {
+  continue-list = <DE_UNDERSCORE DE_MINUS BACKSPACE DELETE>;
+};
 
 / {
-        keymap {
-                compatible = "zmk,keymap";
 
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
-                        bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
-                        >;
-                };
-                lower_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                                    &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
-                        >;
-                };
+  behaviors {
+    hml: home_row_mod_left {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        require-prior-idle-ms = <150>;
+        tapping-term-ms = <280>;
+        quick-tap-ms = <QUICK_TAP_MS>;
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <KEYS_R THUMBS_R>;
+        hold-trigger-on-release;
+    };
+    hmlpergre: home_row_mod_left_pergre {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        require-prior-idle-ms = <150>;
+        tapping-term-ms = <280>;
+        quick-tap-ms = <QUICK_TAP_MS>;
+        bindings = <&kp>, <&pergre>;
+        hold-trigger-key-positions = <KEYS_R THUMBS_R>;
+        hold-trigger-on-release;
+    };
+    hmr: home_row_mod_right {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        require-prior-idle-ms = <150>;
+        tapping-term-ms = <280>;
+        quick-tap-ms = <QUICK_TAP_MS>;
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <KEYS_L THUMBS_L>;
+        hold-trigger-on-release;
+    };
+    gracu: grave_acute {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp DE_GRAVE>, <&kp DE_ACUTE>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    slabs: slash_bslh {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp DE_SLASH>, <&kp DE_BSLH>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    carect: caret_sect {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp DE_CARET>, <&kp DE_SECT>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    pergre: percent_degree {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp DE_PERCENT>, <&kp DE_DEGREE>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    qmpip: qmark_pipe {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp DE_QMARK>, <&kp DE_PIPE>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    uue: umlaut_ue {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp U>, <&kp DE_U_UMLAUT>;
+        mods = <(MOD_LALT|MOD_RALT)>;
+    };
+    aae: umlaut_ae {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp A>, <&kp DE_A_UMLAUT>;
+        mods = <(MOD_LALT|MOD_RALT)>;
+    };
+    ooe: umlaut_oe {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp O>, <&kp DE_O_UMLAUT>;
+        mods = <(MOD_LALT|MOD_RALT)>;
+    };
+    ssz: sharp_s {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp S>, <&kp DE_SZ>;
+        mods = <(MOD_LALT|MOD_RALT)>;
+    };
+  };
 
-                raise_layer {
+  macros {
+    locscr: lock_screen {
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        bindings =
+                <&macro_press &kp RCTRL &kp RCMD>,
+                <&macro_tap &kp Q>,
+                <&macro_release &kp RCTRL &kp RCMD>;
+    };
+  };
+
+  keymap {
+    compatible = "zmk,keymap";
+    default_layer {
+      display-name = "Base";
 // -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+// |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U   |  I  |  O  |  P  |      |
+// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  | ENT |      |
+// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
+//                    | ESC | TAB |BSPC |   |SPACE| DEL  | Fn  |
                         bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
+   &none &kp Q           &kp W       &kp E       &kp R        &kp T          &kp DE_Z      &uue         &kp I              &ooe             &kp P               &none
+   &none &aae            &ssz        &kp D       &kp F        &kp G          &kp H         &kp J        &kp K              &kp L            &kp RET             &none
+   &none &hml LSHFT DE_Y &hml LALT X &hml LCMD C &hml LCTRL V &kp B          &kp N         &hmr RCTRL M &hmr RCMD DE_COMMA &hmr RALT DE_DOT &hmr RSHFT DE_MINUS &none
+                                     &kp ESC     &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
-                };
-        };
+    };
+
+    sym_layer {
+      display-name = "Sym";
+// -----------------------------------------------------------------------------------------
+// |      |  !  |  "  |  {  |  }  |  `´ |   |  /\ |  7  |  8  |  9  |  *  |      |
+// |      |  ^§ |  $  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  +  |      |
+// |      |  %° |  &  |  [  |  ]  |  #  |   |  ?| |  1  |  2  |  3  |  0  |      |
+//                    |  <  |  >  |     |   |     |     |     |
+                        bindings = <
+   &none &kp DE_EXCL        &kp DE_DQT        &kp DE_LBRC       &kp DE_RBRC        &gracu        &slabs       &kp DE_N7        &kp DE_N8       &kp DE_N9       &kp DE_STAR      &none
+   &none &carect            &kp DE_DOLLAR     &kp DE_LPAR       &kp DE_RPAR        &kp DE_SQT    &kp DE_EQUAL &kp DE_N4        &kp DE_N5       &kp DE_N6       &kp DE_PLUS      &none
+   &none &hmlpergre LSHFT 0 &hml LALT DE_AMPS &hml LCMD DE_LBKT &hml LCTRL DE_RBKT &kp DE_HASH   &qmpip       &hmr RCTRL DE_N1 &hmr RCMD DE_N2 &hmr RALT DE_N3 &hmr RSHFT DE_N0 &none
+                                              &kp DE_LT         &kp DE_GT          &trans        &trans       &trans           &trans
+                        >;
+    };
+
+    nav_layer {
+      display-name = "Nav";
+// -----------------------------------------------------------------------------------------
+// |      |BRIUP| F1  | F2  | F3  | F10 |   |PgUp | Home|  ↑  | End |VOLUP|      |
+// |      |CAPLO| F4  | F5  | F4  | F11 |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
+// |      |BRIDO| F7  | F8  | F9  | F12 |   |     |     |     |     | MUTE|      |
+//                    |     |     |     |   |     |     |     |
+                        bindings = <
+   &none &kp F15        &kp F1       &kp F2       &kp F3        &kp F10   &kp PG_UP &kp HOME  &kp UP   &kp END   &kp C_VOL_UP      &none
+   &none &caps_word     &kp F4       &kp F5       &kp F6        &kp F11   &kp PG_DN &kp LEFT  &kp DOWN &kp RIGHT &kp C_VOL_DN      &none
+   &none &hml LSHFT F14 &hml LALT F7 &hml LCMD F8 &hml LCTRL F9 &kp F12   &none     &kp RCTRL &kp RCMD &kp RALT  &hmr RSHFT C_MUTE &none
+                                     &trans       &trans        &trans    &trans    &trans    &trans
+                        >;
+    };
+
+    sys_layer {
+      display-name = "Sys";
+// -----------------------------------------------------------------------------------------
+// |      |     |     |     |     |     |   |     |     |     |     |     |      |
+// |      |     |     |     |     |STUDI|   |     |     |     |     |     |      |
+// |      | BT0 | BT1 | BT2 |BTCLR|BCLRA|   |LOCKS|     |     |     |     |      |
+//                    |     |     |     |   |     |     |     |
+                        bindings = <
+   &none &none        &none        &none        &none      &none            &none   &none  &none &none &none &none
+   &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none &none &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &none &none
+                                   &trans       &trans     &trans           &trans  &trans &trans
+                        >;
+    };
+
+  };
+
+  conditional_layers {
+    compatible = "zmk,conditional-layers";
+    sys_layer {
+      if-layers = <SYM NAV>;
+      then-layer = <SYS>;
+    };
+  };
 };

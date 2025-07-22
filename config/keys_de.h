@@ -1,6 +1,8 @@
 /*
  * Localized Keys for German
  *
+ * https://github.com/joelspadin/zmk-locales
+ *
  * This file was generated from data with the following license:
  *
  * UNICODE, INC. LICENSE AGREEMENT - DATA FILES AND SOFTWARE
