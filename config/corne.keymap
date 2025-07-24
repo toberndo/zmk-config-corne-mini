@@ -9,7 +9,8 @@
 #include <dt-bindings/zmk/keys.h>
 
 #include "keys_de.h"
-#include "42.h"
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/key-labels/42.h"
 
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4
@@ -21,14 +22,30 @@
 #define NAV 2
 #define SYS 3
 
-#define QUICK_TAP_MS 175
+#define HRM_QUICK_TAP_MS 175
 #define HRM_PRIOR_IDLE_MS 125
 #define HRM_TAP_TERM_MS 250
+
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                        \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";                   \
+               tapping-term-ms = <HRM_TAP_TERM_MS>; quick-tap-ms = <HRM_QUICK_TAP_MS>;    \
+               require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>; hold-trigger-on-release;  \
+               hold-trigger-key-positions = <TRIGGER_POS>;)
+
+// Left-hand HRMs
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS_R)
+MAKE_HRM(hmlcarect, &kp, &carect, KEYS_R THUMBS_R)
+MAKE_HRM(hmlaae, &kp, &aae, KEYS_R THUMBS_R)
+MAKE_HRM(hmlssz, &kp, &ssz, KEYS_R THUMBS_R)
+MAKE_HRM(hmlcaplo, &kp, &caps_word, KEYS_R THUMBS_R)
+
+// Right-hand HRMs
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 
 &lt {
   flavor = "balanced";
   tapping-term-ms = <200>;
-  quick-tap-ms = <QUICK_TAP_MS>;
+  quick-tap-ms = <175>;
 };
 
 &caps_word {
@@ -38,39 +55,7 @@
 / {
 
   behaviors {
-    hml: home_row_mod_left {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>;
-        tapping-term-ms = <HRM_TAP_TERM_MS>;
-        quick-tap-ms = <QUICK_TAP_MS>;
-        bindings = <&kp>, <&kp>;
-        hold-trigger-key-positions = <KEYS_R THUMBS_R>;
-        hold-trigger-on-release;
-    };
-    hmlpergre: home_row_mod_left_pergre {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>;
-        tapping-term-ms = <HRM_TAP_TERM_MS>;
-        quick-tap-ms = <QUICK_TAP_MS>;
-        bindings = <&kp>, <&pergre>;
-        hold-trigger-key-positions = <KEYS_R THUMBS_R>;
-        hold-trigger-on-release;
-    };
-    hmr: home_row_mod_right {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>;
-        tapping-term-ms = <HRM_TAP_TERM_MS>;
-        quick-tap-ms = <QUICK_TAP_MS>;
-        bindings = <&kp>, <&kp>;
-        hold-trigger-key-positions = <KEYS_L THUMBS_L>;
-        hold-trigger-on-release;
-    };
+    // `´
     gracu: grave_acute {
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
@@ -83,6 +68,7 @@
         bindings = <&kp DE_SLASH>, <&kp DE_BSLH>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
+    // ^§
     carect: caret_sect {
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
@@ -148,10 +134,10 @@
 // |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL  | Fn  |
                         bindings = <
-   &none &kp Q           &kp W       &kp E       &kp R        &kp T          &kp DE_Z      &uue         &kp I              &ooe             &kp P               &none
-   &none &aae            &ssz        &kp D       &kp F        &kp G          &kp H         &kp J        &kp K              &kp L            &kp RET             &none
-   &none &hml LSHFT DE_Y &hml LALT X &hml LCMD C &hml LCTRL V &kp B          &kp N         &hmr RCTRL M &hmr RCMD DE_COMMA &hmr RALT DE_DOT &hmr RSHFT DE_MINUS &none
-                                     &kp ESC     &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
+   &none &kp Q           &kp W          &kp E        &kp R       &kp T         &kp DE_Z      &uue        &kp I        &ooe        &kp P          &none
+   &none &hmlaae LCTRL 0 &hmlssz LALT 0 &hml LSHFT D &hml LCMD F &kp G         &kp H         &hmr RCMD J &hmr RSHFT K &hmr RALT L &hmr RCTRL RET &none
+   &none &kp DE_Y        &kp X          &kp C        &kp V       &kp B         &kp N         &kp M       &kp DE_COMMA &kp DE_DOT  &kp DE_MINUS   &none
+                                        &kp ESC      &lt NAV TAB &lt SYM BSPC  &lt SYM SPACE &lt NAV DEL &kp GLOBE
                         >;
     };
 
@@ -163,10 +149,10 @@
 // |      |  %° |  &  |  [  |  ]  |  #  |   |  ?| |  1  |  2  |  3  |  0  |      |
 //                    |  <  |  >  |     |   |     |     |     |
                         bindings = <
-   &none &kp DE_EXCL        &kp DE_DQT        &kp DE_LBRC       &kp DE_RBRC        &gracu        &slabs       &kp DE_N7        &kp DE_N8       &kp DE_N9       &kp DE_STAR      &none
-   &none &carect            &kp DE_DOLLAR     &kp DE_LPAR       &kp DE_RPAR        &kp DE_SQT    &kp DE_EQUAL &kp DE_N4        &kp DE_N5       &kp DE_N6       &kp DE_PLUS      &none
-   &none &hmlpergre LSHFT 0 &hml LALT DE_AMPS &hml LCMD DE_LBKT &hml LCTRL DE_RBKT &kp DE_HASH   &qmpip       &hmr RCTRL DE_N1 &hmr RCMD DE_N2 &hmr RALT DE_N3 &hmr RSHFT DE_N0 &none
-                                              &kp DE_LT         &kp DE_GT          &trans        &trans       &trans           &trans
+   &none &kp DE_EXCL        &kp DE_DQT          &kp DE_LBRC        &kp DE_RBRC       &gracu        &slabs       &kp DE_N7       &kp DE_N8        &kp DE_N9       &kp DE_STAR        &none
+   &none &hmlcarect LCTRL 0 &hml LALT DE_DOLLAR &hml LSHFT DE_LPAR &hml LCMD DE_RPAR &kp DE_SQT    &kp DE_EQUAL &hmr RCMD DE_N4 &hmr RSHFT DE_N5 &hmr RALT DE_N6 &hmr RCTRL DE_PLUS &none
+   &none &pergre            &kp DE_AMPS         &kp DE_LBKT        &kp DE_RBKT       &kp DE_HASH   &qmpip       &kp DE_N1       &kp DE_N2        &kp DE_N3       &kp DE_N0          &none
+                                                &kp DE_LT          &kp DE_GT         &trans        &trans       &trans          &trans
                         >;
     };
 
@@ -174,14 +160,14 @@
       display-name = "Nav";
 // -----------------------------------------------------------------------------------------
 // |      |BRIUP| F1  | F2  | F3  | F10 |   |PgUp | Home|  ↑  | End |VOLUP|      |
-// |      |CAPLO| F4  | F5  | F4  | F11 |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
+// |      |CAPLO| F4  | F5  | F6  | F11 |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
 // |      |BRIDO| F7  | F8  | F9  | F12 |   |     |     |     |     | MUTE|      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp F15        &kp F1       &kp F2       &kp F3        &kp F10   &kp PG_UP &kp HOME  &kp UP   &kp END   &kp C_VOL_UP      &none
-   &none &caps_word     &kp F4       &kp F5       &kp F6        &kp F11   &kp PG_DN &kp LEFT  &kp DOWN &kp RIGHT &kp C_VOL_DN      &none
-   &none &hml LSHFT F14 &hml LALT F7 &hml LCMD F8 &hml LCTRL F9 &kp F12   &none     &kp RCTRL &kp RCMD &kp RALT  &hmr RSHFT C_MUTE &none
-                                     &trans       &trans        &trans    &trans    &trans    &trans
+   &none &kp F15           &kp F1       &kp F2        &kp F3       &kp F10   &kp PG_UP &kp HOME       &kp UP          &kp END         &kp C_VOL_UP        &none
+   &none &hmlcaplo LCTRL 0 &hml LALT F4 &hml LSHFT F5 &hml LCMD F6 &kp F11   &kp PG_DN &hmr RCMD LEFT &hmr RSHFT DOWN &hmr RALT RIGHT &hmr RCTRL C_VOL_DN &none
+   &none &kp F14           &kp F7       &kp F8        &kp F9       &kp F12   &none     &none          &none           &none           &kp C_MUTE          &none
+                                        &trans        &trans       &trans    &trans    &trans         &trans
                         >;
     };
 
