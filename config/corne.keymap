@@ -26,10 +26,10 @@
 #define HRM_PRIOR_IDLE_MS 125
 #define HRM_TAP_TERM_MS 250
 
-#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                        \
-  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";                   \
-               tapping-term-ms = <HRM_TAP_TERM_MS>; quick-tap-ms = <HRM_QUICK_TAP_MS>;    \
-               require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>; hold-trigger-on-release;  \
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                           \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";                      \
+               tapping-term-ms = <HRM_TAP_TERM_MS>; quick-tap-ms = <HRM_QUICK_TAP_MS>;   \
+               require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>; hold-trigger-on-release;     \
                hold-trigger-key-positions = <TRIGGER_POS>;)
 
 // Left-hand HRMs
@@ -41,6 +41,10 @@ MAKE_HRM(hmlcaplo, &kp, &caps_word, KEYS_R THUMBS_R)
 
 // Right-hand HRMs
 MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
+
+// Sticky Shift
+ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
+             tapping-term-ms = <200>; quick-tap-ms = <175>;)
 
 &lt {
   flavor = "balanced";
@@ -134,10 +138,10 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 // |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL  | Fn  |
                         bindings = <
-   &none &kp Q           &kp W          &kp E        &kp R       &kp T         &kp DE_Z      &uue        &kp I        &ooe        &kp P          &none
-   &none &hmlaae LCTRL 0 &hmlssz LALT 0 &hml LSHFT D &hml LCMD F &kp G         &kp H         &hmr RCMD J &hmr RSHFT K &hmr RALT L &hmr RCTRL RET &none
-   &none &kp DE_Y        &kp X          &kp C        &kp V       &kp B         &kp N         &kp M       &kp DE_COMMA &kp DE_DOT  &kp DE_MINUS   &none
-                                        &kp ESC      &lt NAV TAB &lt SYM BSPC  &lt SYM SPACE &lt NAV DEL &kp GLOBE
+   &none &kp Q           &kp W          &kp E        &kp R        &kp T              &kp DE_Z      &uue        &kp I        &ooe        &kp P          &none
+   &none &hmlaae LCTRL 0 &hmlssz LALT 0 &hml LSHFT D &hml LCMD F  &kp G              &kp H         &hmr RCMD J &hmr RSHFT K &hmr RALT L &hmr RCTRL RET &none
+   &none &kp DE_Y        &kp X          &kp C        &kp V        &kp B              &kp N         &kp M       &kp DE_COMMA &kp DE_DOT  &kp DE_MINUS   &none
+                                        &kp ESC      &lt NAV BSPC &stish NAV LSHFT   &lt SYM SPACE &lt NAV DEL &kp TAB
                         >;
     };
 
