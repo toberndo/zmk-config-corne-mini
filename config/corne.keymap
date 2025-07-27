@@ -36,10 +36,6 @@ MAKE_BRM(hmlpergre, &kp, &pergre, KEYS_R THUMBS_R)
 // Right-hand BRMs
 MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 
-// Sticky Shift
-ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
-             tapping-term-ms = <200>; quick-tap-ms = <175>;)
-
 &lt {
   flavor = "balanced";
   tapping-term-ms = <200>;
@@ -135,7 +131,7 @@ ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
    &none &kp Q           &kp W       &kp E        &kp R        &kp T              &kp DE_Z      &uue        &kp I               &ooe             &kp P               &none
    &none &aae            &ssz        &kp D        &kp F        &kp G              &kp H         &kp J       &kp K               &kp L            &kp RET             &none
    &none &hml LCTRL DE_Y &hml LALT X &hml LSHFT C &hml LCMD V  &kp B              &kp N         &hmr RCMD M &hmr RSHFT DE_COMMA &hmr RALT DE_DOT &hmr RCTRL DE_MINUS &none
-                                     &kp ESC      &lt NAV BSPC &stish SYM LSHFT   &lt SYM SPACE &lt NAV DEL &kp TAB
+                                     &kp ESC      &lt NAV TAB  &lt SYM BSPC       &lt SYM SPACE &lt NAV DEL &kp GLOBE
                         >;
     };
 
