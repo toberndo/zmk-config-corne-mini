@@ -22,25 +22,19 @@
 #define NAV 2
 #define SYS 3
 
-#define HRM_QUICK_TAP_MS 175
-#define HRM_PRIOR_IDLE_MS 125
-#define HRM_TAP_TERM_MS 250
 
-#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                           \
-  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";                      \
-               tapping-term-ms = <HRM_TAP_TERM_MS>; quick-tap-ms = <HRM_QUICK_TAP_MS>;   \
-               require-prior-idle-ms = <HRM_PRIOR_IDLE_MS>; hold-trigger-on-release;     \
+#define MAKE_BRM(NAME, HOLD, TAP, TRIGGER_POS)                           \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
+               tapping-term-ms = <250>; quick-tap-ms = <175>;            \
+               require-prior-idle-ms = <125>; hold-trigger-on-release;   \
                hold-trigger-key-positions = <TRIGGER_POS>;)
 
-// Left-hand HRMs
-MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS_R)
-MAKE_HRM(hmlcarect, &kp, &carect, KEYS_R THUMBS_R)
-MAKE_HRM(hmlaae, &kp, &aae, KEYS_R THUMBS_R)
-MAKE_HRM(hmlssz, &kp, &ssz, KEYS_R THUMBS_R)
-MAKE_HRM(hmlcaplo, &kp, &caps_word, KEYS_R THUMBS_R)
+// Left-hand BRMs
+MAKE_BRM(hml, &kp, &kp, KEYS_R THUMBS_R)
+MAKE_BRM(hmlpergre, &kp, &pergre, KEYS_R THUMBS_R)
 
-// Right-hand HRMs
-MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
+// Right-hand BRMs
+MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 
 // Sticky Shift
 ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
@@ -136,12 +130,12 @@ ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
 // |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U   |  I  |  O  |  P  |      |
 // |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  | ENT |      |
 // |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
-//                    | ESC | TAB |BSPC |   |SPACE| DEL  | Fn  |
+//                    | ESC |BSPC |SHIFT|   |SPACE| DEL  | TAB |
                         bindings = <
-   &none &kp Q           &kp W          &kp E        &kp R        &kp T              &kp DE_Z      &uue        &kp I        &ooe        &kp P          &none
-   &none &hmlaae LCTRL 0 &hmlssz LALT 0 &hml LSHFT D &hml LCMD F  &kp G              &kp H         &hmr RCMD J &hmr RSHFT K &hmr RALT L &hmr RCTRL RET &none
-   &none &kp DE_Y        &kp X          &kp C        &kp V        &kp B              &kp N         &kp M       &kp DE_COMMA &kp DE_DOT  &kp DE_MINUS   &none
-                                        &kp ESC      &lt NAV BSPC &stish NAV LSHFT   &lt SYM SPACE &lt NAV DEL &kp TAB
+   &none &kp Q           &kp W       &kp E        &kp R        &kp T              &kp DE_Z      &uue        &kp I               &ooe             &kp P               &none
+   &none &aae            &ssz        &kp D        &kp F        &kp G              &kp H         &kp J       &kp K               &kp L            &kp RET             &none
+   &none &hml LCTRL DE_Y &hml LALT X &hml LSHFT C &hml LCMD V  &kp B              &kp N         &hmr RCMD M &hmr RSHFT DE_COMMA &hmr RALT DE_DOT &hmr RCTRL DE_MINUS &none
+                                     &kp ESC      &lt NAV BSPC &stish SYM LSHFT   &lt SYM SPACE &lt NAV DEL &kp TAB
                         >;
     };
 
@@ -153,10 +147,10 @@ ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
 // |      |  %° |  &  |  [  |  ]  |  #  |   |  ?| |  1  |  2  |  3  |  0  |      |
 //                    |  <  |  >  |     |   |     |     |     |
                         bindings = <
-   &none &kp DE_EXCL        &kp DE_DQT          &kp DE_LBRC        &kp DE_RBRC       &gracu        &slabs       &kp DE_N7       &kp DE_N8        &kp DE_N9       &kp DE_STAR        &none
-   &none &hmlcarect LCTRL 0 &hml LALT DE_DOLLAR &hml LSHFT DE_LPAR &hml LCMD DE_RPAR &kp DE_SQT    &kp DE_EQUAL &hmr RCMD DE_N4 &hmr RSHFT DE_N5 &hmr RALT DE_N6 &hmr RCTRL DE_PLUS &none
-   &none &pergre            &kp DE_AMPS         &kp DE_LBKT        &kp DE_RBKT       &kp DE_HASH   &qmpip       &kp DE_N1       &kp DE_N2        &kp DE_N3       &kp DE_N0          &none
-                                                &kp DE_LT          &kp DE_GT         &trans        &trans       &trans          &trans
+   &none &kp DE_EXCL        &kp DE_DQT        &kp DE_LBRC        &kp DE_RBRC       &gracu        &slabs       &kp DE_N7       &kp DE_N8        &kp DE_N9       &kp DE_STAR      &none
+   &none &carect            &kp DE_DOLLAR     &kp DE_LPAR        &kp DE_RPAR       &kp DE_SQT    &kp DE_EQUAL &kp DE_N4       &kp DE_N5        &kp DE_N6       &kp DE_PLUS      &none
+   &none &hmlpergre LCTRL 0 &hml LALT DE_AMPS &hml LSHFT DE_LBKT &hml LCMD DE_RBKT &kp DE_HASH   &qmpip       &hmr RCMD DE_N1 &hmr RSHFT DE_N2 &hmr RALT DE_N3 &hmr RCTRL DE_N0 &none
+                                              &kp DE_LT          &kp DE_GT         &trans        &trans       &trans          &trans
                         >;
     };
 
@@ -168,10 +162,10 @@ ZMK_HOLD_TAP(stish, bindings = <&mo>, <&sk>; flavor = "balanced";   \
 // |      |BRIDO| F7  | F8  | F9  | F12 |   |     |     |     |     | MUTE|      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp F15           &kp F1       &kp F2        &kp F3       &kp F10   &kp PG_UP &kp HOME       &kp UP          &kp END         &kp C_VOL_UP        &none
-   &none &hmlcaplo LCTRL 0 &hml LALT F4 &hml LSHFT F5 &hml LCMD F6 &kp F11   &kp PG_DN &hmr RCMD LEFT &hmr RSHFT DOWN &hmr RALT RIGHT &hmr RCTRL C_VOL_DN &none
-   &none &kp F14           &kp F7       &kp F8        &kp F9       &kp F12   &none     &none          &none           &none           &kp C_MUTE          &none
-                                        &trans        &trans       &trans    &trans    &trans         &trans
+   &none &kp F15        &kp F1       &kp F2        &kp F3       &kp F10   &kp PG_UP &kp HOME &kp UP    &kp END   &kp C_VOL_UP      &none
+   &none &caps_word     &kp F4       &kp F5        &kp F6       &kp F11   &kp PG_DN &kp LEFT &kp DOWN  &kp RIGHT &kp C_VOL_DN      &none
+   &none &hml LCTRL F14 &hml LALT F7 &hml LSHFT F8 &hml LCMD F9 &kp F12   &none     &kp RCMD &kp RSHFT &kp RALT  &hmr RCTRL C_MUTE &none
+                                     &trans        &trans       &trans    &trans    &trans   &trans
                         >;
     };
 
