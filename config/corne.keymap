@@ -38,7 +38,7 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 
 &lt {
   flavor = "balanced";
-  tapping-term-ms = <200>;
+  tapping-term-ms = <225>;
   quick-tap-ms = <175>;
 };
 
