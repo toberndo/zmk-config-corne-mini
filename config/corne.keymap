@@ -62,11 +62,11 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
         bindings = <&kp DE_SLASH>, <&kp DE_BSLH>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-    // ^§
-    carect: caret_sect {
+    // §^
+    secar: sect_caret {
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
-        bindings = <&kp DE_CARET>, <&kp DE_SECT>;
+        bindings = <&kp DE_SECT>, <&kp DE_CARET>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
     pergre: percent_degree {
@@ -139,12 +139,12 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
       display-name = "Sym";
 // -----------------------------------------------------------------------------------------
 // |      |  !  |  "  |  {  |  }  |  `´ |   |  /\ |  7  |  8  |  9  |  *  |      |
-// |      |  ^§ |  $  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  +  |      |
+// |      |  §^ |  $  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  +  |      |
 // |      |  %° |  &  |  [  |  ]  |  #  |   |  ?| |  1  |  2  |  3  |  0  |      |
 //                    |  <  |  >  |     |   |     |     |     |
                         bindings = <
    &none &kp DE_EXCL        &kp DE_DQT        &kp DE_LBRC        &kp DE_RBRC       &gracu        &slabs       &kp DE_N7       &kp DE_N8        &kp DE_N9       &kp DE_STAR      &none
-   &none &carect            &kp DE_DOLLAR     &kp DE_LPAR        &kp DE_RPAR       &kp DE_SQT    &kp DE_EQUAL &kp DE_N4       &kp DE_N5        &kp DE_N6       &kp DE_PLUS      &none
+   &none &secar             &kp DE_DOLLAR     &kp DE_LPAR        &kp DE_RPAR       &kp DE_SQT    &kp DE_EQUAL &kp DE_N4       &kp DE_N5        &kp DE_N6       &kp DE_PLUS      &none
    &none &hmlpergre LCTRL 0 &hml LALT DE_AMPS &hml LSHFT DE_LBKT &hml LCMD DE_RBKT &kp DE_HASH   &qmpip       &hmr RCMD DE_N1 &hmr RSHFT DE_N2 &hmr RALT DE_N3 &hmr RCTRL DE_N0 &none
                                               &kp DE_LT          &kp DE_GT         &trans        &trans       &trans          &trans
                         >;
