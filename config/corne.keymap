@@ -22,18 +22,35 @@
 #define NAV 2
 #define SYS 3
 
-
-#define MAKE_BRM(NAME, HOLD, TAP, TRIGGER_POS)                           \
+// CTRL and CMD
+#define MAKE_BRM_C(NAME, HOLD, TAP, TRIGGER_POS)                         \
   ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
-               tapping-term-ms = <250>; quick-tap-ms = <175>;            \
+              tapping-term-ms = <250>; quick-tap-ms = <175>;             \
+              require-prior-idle-ms = <150>; hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
+
+// SHIFT
+#define MAKE_BRM_S(NAME, HOLD, TAP, TRIGGER_POS)                         \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
+              tapping-term-ms = <230>; quick-tap-ms = <175>;             \
+              hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
+
+// ALT
+#define MAKE_BRM_A(NAME, HOLD, TAP, TRIGGER_POS)                         \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
+              tapping-term-ms = <240>; quick-tap-ms = <175>;             \
               hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
 
 // Left-hand BRMs
-MAKE_BRM(hml, &kp, &kp, KEYS_R THUMBS_R)
-MAKE_BRM(hmlpergre, &kp, &pergre, KEYS_R THUMBS_R)
+MAKE_BRM_C(hmlcpd, &kp, &perdeg, KEYS_R THUMBS_R)
+MAKE_BRM_S(hmls, &kp, &kp, KEYS_R THUMBS_R)
+MAKE_BRM_A(hmla, &kp, &kp, KEYS_R THUMBS_R)
+MAKE_BRM_C(hmlc, &kp, &kp, KEYS_R THUMBS_R)
+
 
 // Right-hand BRMs
-MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
+MAKE_BRM_C(hmrc, &kp, &kp, KEYS_L THUMBS_L)
+MAKE_BRM_S(hmrs, &kp, &kp, KEYS_L THUMBS_L)
+MAKE_BRM_A(hmra, &kp, &kp, KEYS_L THUMBS_L)
 
 &lt {
   flavor = "balanced";
@@ -68,7 +85,7 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
         bindings = <&kp DE_SECT>, <&kp DE_CARET>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-    pergre: percent_degree {
+    perdeg: percent_degree {
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
         bindings = <&kp DE_PERCENT>, <&kp DE_DEGREE>;
@@ -123,14 +140,14 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
       display-name = "Base";
 // -----------------------------------------------------------------------------------------
 // |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U   |  I  |  O  |  P  |      |
-// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  | ENT |      |
+// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  | RET |      |
 // |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
-//                    | ESC |BSPC |SHIFT|   |SPACE| DEL  | TAB |
+//                    | ESC | TAB |BSPC |   |SPACE| DEL  |GLOBE|
                         bindings = <
-   &none &kp Q           &kp W       &kp E        &kp R        &kp T              &kp DE_Z      &uue        &kp I               &ooe             &kp P               &none
-   &none &aae            &ssz        &kp D        &kp F        &kp G              &kp H         &kp J       &kp K               &kp L            &kp RET             &none
-   &none &hml LCTRL DE_Y &hml LALT X &hml LSHFT C &hml LCMD V  &kp B              &kp N         &hmr RCMD M &hmr RSHFT DE_COMMA &hmr RALT DE_DOT &hmr RCTRL DE_MINUS &none
-                                     &kp ESC      &lt NAV TAB  &lt SYM BSPC       &lt SYM SPACE &lt NAV DEL &kp GLOBE
+   &none &kp Q            &kp W        &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I                &ooe              &kp P                &none
+   &none &aae             &ssz         &kp D         &kp F        &kp G          &kp H         &kp J        &kp K                &kp L             &kp RET              &none
+   &none &hmlc LCTRL DE_Y &hmla LALT X &hmls LSHFT C &hmlc LCMD V &kp B          &kp N         &hmrc RCMD M &hmrs RSHFT DE_COMMA &hmra RALT DE_DOT &hmrc RCTRL DE_MINUS &none
+                                       &kp ESC       &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
     };
 
@@ -140,12 +157,12 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 // |      |  !  |  "  |  {  |  }  |  `´ |   |  /\ |  7  |  8  |  9  |  *  |      |
 // |      |  §^ |  $  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  +  |      |
 // |      |  %° |  &  |  [  |  ]  |  #  |   |  ?| |  1  |  2  |  3  |  0  |      |
-//                    |  <  |  >  |     |   |     |     |     |
+//                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp DE_EXCL        &kp DE_DQT        &kp DE_LBRC        &kp DE_RBRC       &gracu        &slabs       &kp DE_N7       &kp DE_N8        &kp DE_N9       &kp DE_STAR      &none
-   &none &secar             &kp DE_DOLLAR     &kp DE_LPAR        &kp DE_RPAR       &kp DE_SQT    &kp DE_EQUAL &kp DE_N4       &kp DE_N5        &kp DE_N6       &kp DE_PLUS      &none
-   &none &hmlpergre LCTRL 0 &hml LALT DE_AMPS &hml LSHFT DE_LBKT &hml LCMD DE_RBKT &kp DE_HASH   &qmpip       &hmr RCMD DE_N1 &hmr RSHFT DE_N2 &hmr RALT DE_N3 &hmr RCTRL DE_N0 &none
-                                              &kp DE_LT          &kp DE_GT         &trans        &trans       &trans          &trans
+   &none &kp DE_EXCL     &kp DE_DQT         &kp DE_LBRC         &kp DE_RBRC        &gracu        &slabs       &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR       &none
+   &none &secar          &kp DE_DOLLAR      &kp DE_LPAR         &kp DE_RPAR        &kp DE_SQT    &kp DE_EQUAL &kp DE_N4        &kp DE_N5         &kp DE_N6        &kp DE_PLUS       &none
+   &none &hmlcpd LCTRL 0 &hmla LALT DE_AMPS &hmls LSHFT DE_LBKT &hmlc LCMD DE_RBKT &kp DE_HASH   &qmpip       &hmrc RCMD DE_N1 &hmrs RSHFT DE_N2 &hmra RALT DE_N3 &hmrc RCTRL DE_N0 &none
+                                            &trans              &trans             &trans        &trans       &trans           &trans
                         >;
     };
 
@@ -154,13 +171,13 @@ MAKE_BRM(hmr, &kp, &kp, KEYS_L THUMBS_L)
 // -----------------------------------------------------------------------------------------
 // |      |BRIUP| F1  | F2  | F3  | F10 |   |PgUp | Home|  ↑  | End |VOLUP|      |
 // |      |CAPLO| F4  | F5  | F6  | F11 |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
-// |      |BRIDO| F7  | F8  | F9  | F12 |   |     |     |     |     | MUTE|      |
+// |      |BRIDO| F7  | F8  | F9  | F12 |   |     |  <  |  >  |     |MUTE |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp F15        &kp F1       &kp F2        &kp F3       &kp F10   &kp PG_UP &kp HOME &kp UP    &kp END   &kp C_VOL_UP      &none
-   &none &caps_word     &kp F4       &kp F5        &kp F6       &kp F11   &kp PG_DN &kp LEFT &kp DOWN  &kp RIGHT &kp C_VOL_DN      &none
-   &none &hml LCTRL F14 &hml LALT F7 &hml LSHFT F8 &hml LCMD F9 &kp F12   &none     &kp RCMD &kp RSHFT &kp RALT  &hmr RCTRL C_MUTE &none
-                                     &trans        &trans       &trans    &trans    &trans   &trans
+   &none &kp F15         &kp F1        &kp F2         &kp F3        &kp F10   &kp PG_UP &kp HOME         &kp UP            &kp END   &kp C_VOL_UP       &none
+   &none &caps_word      &kp F4        &kp F5         &kp F6        &kp F11   &kp PG_DN &kp LEFT         &kp DOWN          &kp RIGHT &kp C_VOL_DN       &none
+   &none &hmlc LCTRL F14 &hmla LALT F7 &hmls LSHFT F8 &hmlc LCMD F9 &kp F12   &none     &hmrc RCMD DE_LT &hmrs RSHFT DE_GT &kp RALT  &hmrc RCTRL C_MUTE &none
+                                       &trans         &trans        &trans    &trans    &trans           &trans
                         >;
     };
 
