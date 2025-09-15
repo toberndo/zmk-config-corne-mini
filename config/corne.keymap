@@ -28,29 +28,21 @@
               tapping-term-ms = <250>; quick-tap-ms = <175>;             \
               require-prior-idle-ms = <150>; hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
 
-// SHIFT
+// SHIFT and ALT
 #define MAKE_BRM_S(NAME, HOLD, TAP, TRIGGER_POS)                         \
   ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
-              tapping-term-ms = <230>; quick-tap-ms = <175>;             \
-              hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
-
-// ALT
-#define MAKE_BRM_A(NAME, HOLD, TAP, TRIGGER_POS)                         \
-  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";      \
-              tapping-term-ms = <240>; quick-tap-ms = <175>;             \
+              tapping-term-ms = <200>; quick-tap-ms = <175>;             \
               hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
 
 // Left-hand BRMs
 MAKE_BRM_C(hmlcpd, &kp, &perdeg, KEYS_R THUMBS_R)
 MAKE_BRM_S(hmls, &kp, &kp, KEYS_R THUMBS_R)
-MAKE_BRM_A(hmla, &kp, &kp, KEYS_R THUMBS_R)
 MAKE_BRM_C(hmlc, &kp, &kp, KEYS_R THUMBS_R)
 
 
 // Right-hand BRMs
 MAKE_BRM_C(hmrc, &kp, &kp, KEYS_L THUMBS_L)
 MAKE_BRM_S(hmrs, &kp, &kp, KEYS_L THUMBS_L)
-MAKE_BRM_A(hmra, &kp, &kp, KEYS_L THUMBS_L)
 
 &lt {
   flavor = "balanced";
@@ -141,7 +133,7 @@ MAKE_BRM_A(hmra, &kp, &kp, KEYS_L THUMBS_L)
                         bindings = <
    &none &kp Q            &kp W        &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I                &ooe              &kp P                &none
    &none &aae             &ssz         &kp D         &kp F        &kp G          &kp H         &kp J        &kp K                &kp L             &kp RET              &none
-   &none &hmlc LCTRL DE_Y &hmla LALT X &hmls LSHFT C &hmlc LCMD V &kp B          &kp N         &hmrc RCMD M &hmrs RSHFT DE_COMMA &hmra RALT DE_DOT &hmrc RCTRL DE_MINUS &none
+   &none &hmlc LCTRL DE_Y &hmls LALT X &hmls LSHFT C &hmlc LCMD V &kp B          &kp N         &hmrc RCMD M &hmrs RSHFT DE_COMMA &hmrs RALT DE_DOT &hmrc RCTRL DE_MINUS &none
                                        &kp ESC       &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
     };
@@ -156,7 +148,7 @@ MAKE_BRM_A(hmra, &kp, &kp, KEYS_L THUMBS_L)
                         bindings = <
    &none &kp DE_EXCL     &kp DE_DQT         &kp DE_LBRC         &kp DE_RBRC        &gracu        &slabs       &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR       &none
    &none &secar          &kp DE_DOLLAR      &kp DE_LPAR         &kp DE_RPAR        &kp DE_SQT    &kp DE_EQUAL &kp DE_N4        &kp DE_N5         &kp DE_N6        &kp DE_PLUS       &none
-   &none &hmlcpd LCTRL 0 &hmla LALT DE_AMPS &hmls LSHFT DE_LBKT &hmlc LCMD DE_RBKT &kp DE_HASH   &kp DE_QMARK &hmrc RCMD DE_N1 &hmrs RSHFT DE_N2 &hmra RALT DE_N3 &hmrc RCTRL DE_N0 &none
+   &none &hmlcpd LCTRL 0 &hmls LALT DE_AMPS &hmls LSHFT DE_LBKT &hmlc LCMD DE_RBKT &kp DE_HASH   &kp DE_QMARK &hmrc RCMD DE_N1 &hmrs RSHFT DE_N2 &hmrs RALT DE_N3 &hmrc RCTRL DE_N0 &none
                                             &trans              &trans             &trans        &trans       &trans           &trans
                         >;
     };
@@ -171,7 +163,7 @@ MAKE_BRM_A(hmra, &kp, &kp, KEYS_L THUMBS_L)
                         bindings = <
    &none &kp F15         &kp F1        &kp F2         &kp F3        &kp F10   &kp PG_UP   &kp HOME         &kp UP            &kp END   &kp C_VOL_UP       &none
    &none &caps_word      &kp F4        &kp F5         &kp F6        &kp F11   &kp PG_DN   &kp LEFT         &kp DOWN          &kp RIGHT &kp C_VOL_DN       &none
-   &none &hmlc LCTRL F14 &hmla LALT F7 &hmls LSHFT F8 &hmlc LCMD F9 &kp F12   &kp DE_PIPE &hmrc RCMD DE_LT &hmrs RSHFT DE_GT &kp RALT  &hmrc RCTRL C_MUTE &none
+   &none &hmlc LCTRL F14 &hmls LALT F7 &hmls LSHFT F8 &hmlc LCMD F9 &kp F12   &kp DE_PIPE &hmrc RCMD DE_LT &hmrs RSHFT DE_GT &kp RALT  &hmrc RCTRL C_MUTE &none
                                        &trans         &trans        &trans    &trans      &trans           &trans
                         >;
     };
