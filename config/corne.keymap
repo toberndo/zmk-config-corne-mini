@@ -20,7 +20,8 @@
 #define DEF 0
 #define SYM 1
 #define NAV 2
-#define SYS 3
+#define FUN 3
+#define SYS 4
 
 // CTRL and CMD
 #define MAKE_BRM(NAME, HOLD, TAP, TRIGGER_POS)                         \
@@ -35,7 +36,6 @@
               hold-trigger-on-release; hold-trigger-key-positions = <TRIGGER_POS>;)
 
 // Left-hand
-MAKE_BRM(brmpd, &kp, &perdeg, KEYS_R THUMBS_R)
 MAKE_HRM(hrml, &kp, &kp, KEYS_R THUMBS_R)
 MAKE_HRM(hrmsz, &kp, &ssz, KEYS_R THUMBS_R)
 MAKE_BRM(brml, &kp, &kp, KEYS_R THUMBS_R)
@@ -58,33 +58,6 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 / {
 
   behaviors {
-    // `´
-    gracu: grave_acute {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp DE_GRAVE>, <&kp DE_ACUTE>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
-    slabs: slash_bslh {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp DE_SLASH>, <&kp DE_BSLH>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
-    // §^
-    secar: sect_caret {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp DE_SECT>, <&kp DE_CARET>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
-    // %°
-    perdeg: percent_degree {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp DE_PERCENT>, <&kp DE_DEGREE>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
     uue: umlaut_ue {
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
@@ -135,37 +108,52 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
    &none &kp Q            &kp W         &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I         &ooe         &kp P                &none
    &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G          &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &kp RET              &none
    &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B          &kp N         &brmr RCMD M &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL DE_MINUS &none
-                                        &kp ESC       &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
+                                        &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
     };
 
     sym_layer {
       display-name = "Sym";
 // -----------------------------------------------------------------------------------------
-// |      |  !  |  "  |  {  |  }  |  `´ |   |  /\ |  7  |  8  |  9  |  *  |      |
-// |      |  §^ |  $  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  +  |      |
-// |      |  %° |  &  |  [  |  ]  |  #  |   |  ?  |  1  |  2  |  3  |  0  |      |
+// |      |  §  |  $  |  {  |  }  |  %  |   |  /  |  7  |  8  |  9  |  *  |      |
+// |      |  !  |  "  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  0  |      |
+// |      |  ´  |  &  |  [  |  ]  |  ?  |   |  +  |  1  |  2  |  3  |  -  |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp DE_EXCL    &kp DE_DQT           &kp DE_LBRC         &kp DE_RBRC        &gracu        &slabs       &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR       &none
-   &none &secar         &hrml LALT DE_DOLLAR &hrml LSHFT DE_LPAR &kp DE_RPAR        &kp DE_SQT    &kp DE_EQUAL &kp DE_N4        &hrmr RSHFT DE_N5 &hrmr RALT DE_N6 &kp DE_PLUS       &none
-   &none &brmpd LCTRL 0 &kp DE_AMPS          &kp DE_LBKT         &brml LCMD DE_RBKT &kp DE_HASH   &kp DE_QMARK &brmr RCMD DE_N1 &kp DE_N2         &kp DE_N3        &brmr RCTRL DE_N0 &none
-                                             &trans              &trans             &trans        &trans       &trans           &trans
+   &none &kp DE_SECT          &kp DE_DOLLAR     &kp DE_LBRC         &kp DE_RBRC        &kp DE_PERCENT   &kp DE_SLASH &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR &none
+   &none &kp DE_EXCL          &hrml LALT DE_DQT &hrml LSHFT DE_LPAR &kp DE_RPAR        &kp DE_SQT       &kp DE_EQUAL &kp DE_N4        &hrmr RSHFT DE_N5 &hrmr RALT DE_N6 &kp DE_N0   &none
+   &none &brml LCTRL DE_ACUTE &kp DE_AMPS       &kp DE_LBKT         &brml LCMD DE_RBKT &kp DE_QMARK     &kp DE_PLUS  &brmr RCMD DE_N1 &kp DE_N2         &kp DE_N3        &trans      &none
+                                                &trans              &trans             &trans           &trans       &trans           &trans
                         >;
     };
 
     nav_layer {
       display-name = "Nav";
 // -----------------------------------------------------------------------------------------
-// |      |BRIUP| F1  | F2  | F3  | F10 |   |PgUp | Home|  ↑  | End |VOLUP|      |
-// |      |CAPLO| F4  | F5  | F6  | F11 |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
-// |      |BRIDO| F7  | F8  | F9  | F12 |   |  |  |  <  |  >  |     |MUTE |      |
+// |      |BRIUP|  ^  |     |     |  \  |   |PgUp | Home|  ↑  | End |VOLUP|      |
+// |      |CAPLO|     |  <  |  >  |  `  |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
+// |      |BRIDO|  °  |     |  #  |  |  |   |     |     |     |     |MUTE |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp F15         &kp F1        &kp F2         &kp F3        &kp F10   &kp PG_UP   &kp HOME         &kp UP           &kp END          &kp C_VOL_UP       &none
-   &none &caps_word      &hrml LALT F4 &hrml LSHFT F5 &kp F6        &kp F11   &kp PG_DN   &kp LEFT         &hrmr RSHFT DOWN &hrmr RALT RIGHT &kp C_VOL_DN       &none
-   &none &brml LCTRL F14 &kp F7        &kp F8         &brml LCMD F9 &kp F12   &kp DE_PIPE &brmr RCMD DE_LT &kp DE_GT        &none            &brmr RCTRL C_MUTE &none
-                                       &trans         &trans        &trans    &trans      &trans           &trans
+   &none &kp C_BRI_UP         &kp DE_CARET  &none             &none              &kp DE_BSLH    &kp PG_UP &kp HOME &kp UP           &kp END          &kp C_VOL_UP       &none
+   &none &caps_word           &kp LALT      &hrml LSHFT DE_LT &kp DE_GT          &kp DE_GRAVE   &kp PG_DN &kp LEFT &hrmr RSHFT DOWN &hrmr RALT RIGHT &kp C_VOL_DN       &none
+   &none &brml LCTRL C_BRI_DN &kp DE_DEGREE &none             &brml LCMD DE_HASH &kp DE_PIPE    &none     &kp RCMD &none            &none            &brmr RCTRL C_MUTE &none
+                                            &trans            &trans             &trans         &trans    &trans   &trans
+                        >;
+    };
+
+    fun_layer {
+      display-name = "Fun";
+// -----------------------------------------------------------------------------------------
+// |      |     |     |     |     |     |   | F12 | F7  | F8  | F9  |      |      |
+// |      |     | ALT |SHFT |     |     |   | F11 | F4  | F5  | F6  |      |      |
+// |      |CTRL |     |     | CMD |     |   | F10 | F1  | F2  | F3  |      |      |
+//                    |     |     |     |   |     |     |     |
+                        bindings = <
+   &none &none     &none    &none     &none    &none    &kp F12 &kp F7 &kp F8 &kp F9 &none &none
+   &none &none     &kp LALT &kp LSHFT &none    &none    &kp F11 &kp F4 &kp F5 &kp F6 &none &none
+   &none &kp LCTRL &none    &none     &kp LCMD &none    &kp F10 &kp F1 &kp F2 &kp F3 &none &none
+                            &trans    &trans   &trans   &trans  &trans &trans
                         >;
     };
 
