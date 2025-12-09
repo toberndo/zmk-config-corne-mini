@@ -18,10 +18,11 @@
 #define THUMBS_R RH2 RH1 RH0
 
 #define DEF 0
-#define SYM 1
-#define NAV 2
-#define FUN 3
-#define SYS 4
+#define CAN 1
+#define SYM 2
+#define NAV 3
+#define FUN 4
+#define SYS 5
 
 // CTRL and CMD
 #define MAKE_BRM(NAME, HOLD, TAP, TRIGGER_POS)                         \
@@ -100,15 +101,30 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
     default_layer {
       display-name = "Base";
 // -----------------------------------------------------------------------------------------
-// |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U   |  I  |  O  |  P  |      |
-// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  | RET |      |
-// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  -  |      |
-//                    | ESC | TAB |BSPC |   |SPACE| DEL  |GLOBE|
+// |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U  |  I  |  O  |  P  |      |
+// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  | RET |      |
+// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  |  -  |      |
+//                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
    &none &kp Q            &kp W         &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I         &ooe         &kp P                &none
    &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G          &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &kp RET              &none
    &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B          &kp N         &brmr RCMD M &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL DE_MINUS &none
                                         &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
+                        >;
+    };
+
+    canary_layer {
+      display-name = "Canary";
+// -----------------------------------------------------------------------------------------
+// |      |  W  |  L  |  Y  |  P  |  B  |   |  Z  |  F  |  O  |  U  | RET |      |
+// |      |  C  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  A  |      |
+// |      |  Q  |  J  |  V  |  D  |  K  |   |  X  |  H  |  ,  |  .  |  -  |      |
+//                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
+                        bindings = <
+   &none &kp W         &kp L        &kp DE_Y       &kp P        &kp B    &kp DE_Z &kp F        &ooe          &uue         &kp RET &none
+   &none &kp C         &hrml LALT R &hrmsz LSHFT 0 &kp T        &kp G    &kp M    &kp N        &hrmr RSHFT E &hrmr RALT I &aae    &none
+   &none &brml LCTRL Q &kp J        &kp V          &brml LCMD D &kp K    &kp X    &brmr RCMD H &trans        &trans       &trans  &none
+                                    &trans         &trans       &trans   &trans   &trans       &trans
                         >;
     };
 
@@ -162,12 +178,12 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // -----------------------------------------------------------------------------------------
 // |      |     |     |     |     |     |   |     |     |     |     |     |      |
 // |      |     |     |     |     |STUDI|   |     |     |     |     |     |      |
-// |      | BT0 | BT1 | BT2 |BTCLR|BCLRA|   |LOCKS|     |     |     |     |      |
+// |      | BT0 | BT1 | BT2 |BTCLR|BCLRA|   |LOCKS|     |     |     | CAN |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &none        &none        &none        &none      &none            &none   &none  &none &none &none &none
-   &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none &none &none
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &none &none
+   &none &none        &none        &none        &none      &none            &none   &none  &none &none &none    &none
+   &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none &none    &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &tog CAN &none
                                    &trans       &trans     &trans           &trans  &trans &trans
                         >;
     };
