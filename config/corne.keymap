@@ -18,7 +18,7 @@
 #define THUMBS_R RH2 RH1 RH0
 
 #define DEF 0
-#define CAN 1
+#define DHO 1
 #define SNU 2
 #define SYM 3
 #define NAV 4
@@ -114,18 +114,18 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
                         >;
     };
 
-    canary_layer {
-      display-name = "Canary";
+    dhorf_layer {
+      display-name = "Dhorf";
 // -----------------------------------------------------------------------------------------
-// |      |  W  |  L  |  Y  |  P  |  B  |   |  Z  |  F  |  O  |  U  |     |      |
-// |      |  C  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  A  |      |
-// |      |  Q  |  J  |  V  |  D  |  K  |   |  X  |  H  |  ,  |  .  | RET |      |
+// |      |  Q  |  L  |  H  |  K  |  B  |   |  Y  |  F  |  O  |  U  |     |      |
+// |      |  S  |  R  |  N  |  T  |  W  |   |  P  |  C  |  E  |  I  |  A  |      |
+// |      |  Z  |  X  |  M  |  D  |  V  |   |  J  |  G  |  ,  |  .  | RET |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
-   &none &kp W         &kp L        &kp DE_Y       &kp P        &kp B    &kp DE_Z &kp F        &ooe          &uue         &none   &none
-   &none &kp C         &hrml LALT R &hrmsz LSHFT 0 &kp T        &kp G    &kp M    &kp N        &hrmr RSHFT E &hrmr RALT I &aae    &none
-   &none &brml LCTRL Q &kp J        &kp V          &brml LCMD D &kp K    &kp X    &brmr RCMD H &trans        &trans       &kp RET &none
-                                    &trans         &trans       &trans   &trans   &trans       &trans
+   &none &kp Q            &kp L        &kp H         &kp K        &kp B    &kp DE_Y &kp F        &ooe          &uue         &none   &none
+   &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W    &kp P    &kp C        &hrmr RSHFT E &hrmr RALT I &aae    &none
+   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V    &kp J    &brmr RCMD G &trans        &trans       &kp RET &none
+                                       &trans        &trans       &trans   &trans   &trans       &trans
                         >;
     };
 
@@ -199,7 +199,7 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
                         bindings = <
    &none &none        &none        &none        &none      &none            &none   &none  &none &none    &none    &none
    &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none    &none    &none
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &tog SNU &tog CAN &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &tog SNU &tog DHO &none
                                    &trans       &trans     &trans           &trans  &trans &trans
                         >;
     };
