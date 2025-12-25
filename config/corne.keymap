@@ -19,11 +19,10 @@
 
 #define DEF 0
 #define DHO 1
-#define SNU 2
-#define SYM 3
-#define NAV 4
-#define FUN 5
-#define SYS 6
+#define SYM 2
+#define NAV 3
+#define FUN 4
+#define SYS 5
 
 // CTRL and CMD
 #define MAKE_BRM(NAME, HOLD, TAP, TRIGGER_POS)                         \
@@ -103,13 +102,13 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
       display-name = "Base";
 // -----------------------------------------------------------------------------------------
 // |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U  |  I  |  O  |  P  |      |
-// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  | RET |      |
-// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  |  -  |      |
+// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |     |      |
+// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  | RET |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
-   &none &kp Q            &kp W         &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I         &ooe         &kp P                &none
-   &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G          &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &kp RET              &none
-   &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B          &kp N         &brmr RCMD M &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL DE_MINUS &none
+   &none &kp Q            &kp W         &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I         &ooe         &kp P           &none
+   &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G          &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &none           &none
+   &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B          &kp N         &brmr RCMD M &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL RET &none
                                         &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
     };
@@ -122,24 +121,9 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // |      |  Z  |  X  |  M  |  D  |  V  |   |  J  |  G  |  ,  |  .  | RET |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
-   &none &kp Q            &kp L        &kp H         &kp K        &kp B    &kp DE_Y &kp F        &ooe          &uue         &none   &none
-   &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W    &kp P    &kp C        &hrmr RSHFT E &hrmr RALT I &aae    &none
-   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V    &kp J    &brmr RCMD G &trans        &trans       &kp RET &none
-                                       &trans        &trans       &trans   &trans   &trans       &trans
-                        >;
-    };
-
-    snug_layer {
-      display-name = "Snug";
-// -----------------------------------------------------------------------------------------
-// |      |  Q  |  L  |  D  |  M  |  B  |   |  Y  |  F  |  O  |  U  |     |      |
-// |      |  S  |  R  |  T  |  C  |  G  |   |  P  |  N  |  E  |  I  |  A  |      |
-// |      |  Z  |  X  |  K  |  W  |  V  |   |  J  |  H  |  ,  |  .  | RET |      |
-//                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
-                        bindings = <
-   &none &kp Q            &kp L        &kp D         &kp M        &kp B    &kp DE_Y &kp F        &ooe          &uue         &none   &none
-   &none &ssz             &hrml LALT R &hrml LSHFT T &kp C        &kp G    &kp P    &kp N        &hrmr RSHFT E &hrmr RALT I &aae    &none
-   &none &brml LCTRL DE_Z &kp X        &kp K         &brml LCMD W &kp V    &kp J    &brmr RCMD H &trans        &trans       &kp RET &none
+   &none &kp Q            &kp L        &kp H         &kp K        &kp B    &kp DE_Y &kp F        &ooe          &uue         &none  &none
+   &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W    &kp P    &kp C        &hrmr RSHFT E &hrmr RALT I &aae   &none
+   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V    &kp J    &brmr RCMD G &trans        &trans       &trans &none
                                        &trans        &trans       &trans   &trans   &trans       &trans
                         >;
     };
@@ -194,12 +178,12 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // -----------------------------------------------------------------------------------------
 // |      |     |     |     |     |     |   |     |     |     |     |     |      |
 // |      |     |     |     |     |STUDI|   |     |     |     |     |     |      |
-// |      | BT0 | BT1 | BT2 |BTCLR|BCLRA|   |LOCKS|     |     |     | CAN |      |
+// |      | BT0 | BT1 | BT2 |BTCLR|BCLRA|   |LOCKS|     |     |     | DHO |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &none        &none        &none        &none      &none            &none   &none  &none &none    &none    &none
-   &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none    &none    &none
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &tog SNU &tog DHO &none
+   &none &none        &none        &none        &none      &none            &none   &none  &none &none &none    &none
+   &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none &none    &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &tog DHO &none
                                    &trans       &trans     &trans           &trans  &trans &trans
                         >;
     };
