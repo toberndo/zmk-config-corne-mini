@@ -17,8 +17,8 @@
 #define THUMBS_L LH2 LH1 LH0
 #define THUMBS_R RH2 RH1 RH0
 
-#define DEF 0
-#define DHO 1
+#define DHO 0
+#define QWE 1
 #define SYM 2
 #define NAV 3
 #define FUN 4
@@ -98,33 +98,33 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 
   keymap {
     compatible = "zmk,keymap";
-    default_layer {
-      display-name = "Base";
-// -----------------------------------------------------------------------------------------
-// |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U  |  I  |  O  |  P  |      |
-// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |     |      |
-// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  | RET |      |
-//                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
-                        bindings = <
-   &none &kp Q            &kp W         &kp E         &kp R        &kp T          &kp DE_Z      &uue         &kp I         &ooe         &kp P           &none
-   &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G          &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &none           &none
-   &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B          &kp N         &brmr RCMD M &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL RET &none
-                                        &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
-                        >;
-    };
-
     dhorf_layer {
       display-name = "Dhorf";
 // -----------------------------------------------------------------------------------------
-// |      |  Q  |  L  |  H  |  K  |  B  |   |  Y  |  F  |  O  |  U  |     |      |
+// |      |  Q  |  L  |  H  |  K  |  B  |   |  Y  |  F  |  O  |  U  |  '  |      |
 // |      |  S  |  R  |  N  |  T  |  W  |   |  P  |  C  |  E  |  I  |  A  |      |
 // |      |  Z  |  X  |  M  |  D  |  V  |   |  J  |  G  |  ,  |  .  | RET |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
-   &none &kp Q            &kp L        &kp H         &kp K        &kp B    &kp DE_Y &kp F        &ooe          &uue         &none  &none
-   &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W    &kp P    &kp C        &hrmr RSHFT E &hrmr RALT I &aae   &none
-   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V    &kp J    &brmr RCMD G &trans        &trans       &trans &none
-                                       &trans        &trans       &trans   &trans   &trans       &trans
+   &none &kp Q            &kp L        &kp H         &kp K        &kp B          &kp DE_Y      &kp F        &ooe          &uue         &kp DE_SQT      &none
+   &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W          &kp P         &kp C        &hrmr RSHFT E &hrmr RALT I &aae            &none
+   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V          &kp J         &brmr RCMD G &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL RET &none
+                                       &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
+                        >;
+    };
+
+    qwertz_layer {
+      display-name = "QWERTZ";
+// -----------------------------------------------------------------------------------------
+// |      |  Q  |  W  |  E  |  R  |  T  |   |  Z  |  U  |  I  |  O  |  P  |      |
+// |      |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  '  |      |
+// |      |  Y  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  | RET |      |
+//                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
+                        bindings = <
+   &none &kp Q            &kp W         &kp E         &kp R        &kp T    &kp DE_Z      &uue         &kp I         &ooe         &kp P      &none
+   &none &aae             &hrmsz LALT 0 &hrml LSHFT D &kp F        &kp G    &kp H         &kp J        &hrmr RSHFT K &hrmr RALT L &kp DE_SQT &none
+   &none &brml LCTRL DE_Y &kp X         &kp C         &brml LCMD V &kp B    &kp N         &brmr RCMD M &trans        &trans       &trans     &none
+                                        &trans        &trans       &trans   &trans        &trans       &trans
                         >;
     };
 
@@ -132,13 +132,13 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
       display-name = "Sym";
 // -----------------------------------------------------------------------------------------
 // |      |  §  |  $  |  {  |  }  |  %  |   |  /  |  7  |  8  |  9  |  *  |      |
-// |      |  !  |  "  |  (  |  )  |  '  |   |  =  |  4  |  5  |  6  |  0  |      |
-// |      |  ´  |  &  |  [  |  ]  |  ?  |   |  +  |  1  |  2  |  3  |  -  |      |
+// |      |  !  |  "  |  (  |  )  |  ?  |   |  =  |  4  |  5  |  6  |  0  |      |
+// |      |  ´  |  &  |  [  |  ]  |  #  |   |  +  |  1  |  2  |  3  |  -  |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
    &none &kp DE_SECT          &kp DE_DOLLAR     &kp DE_LBRC         &kp DE_RBRC        &kp DE_PERCENT   &kp DE_SLASH &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR  &none
-   &none &kp DE_EXCL          &hrml LALT DE_DQT &hrml LSHFT DE_LPAR &kp DE_RPAR        &kp DE_SQT       &kp DE_EQUAL &kp DE_N4        &hrmr RSHFT DE_N5 &hrmr RALT DE_N6 &kp DE_N0    &none
-   &none &brml LCTRL DE_ACUTE &kp DE_AMPS       &kp DE_LBKT         &brml LCMD DE_RBKT &kp DE_QMARK     &kp DE_PLUS  &brmr RCMD DE_N1 &kp DE_N2         &kp DE_N3        &kp DE_MINUS &none
+   &none &kp DE_EXCL          &hrml LALT DE_DQT &hrml LSHFT DE_LPAR &kp DE_RPAR        &kp DE_QMARK     &kp DE_EQUAL &kp DE_N4        &hrmr RSHFT DE_N5 &hrmr RALT DE_N6 &kp DE_N0    &none
+   &none &brml LCTRL DE_ACUTE &kp DE_AMPS       &kp DE_LBKT         &brml LCMD DE_RBKT &kp DE_HASH      &kp DE_PLUS  &brmr RCMD DE_N1 &kp DE_N2         &kp DE_N3        &kp DE_MINUS &none
                                                 &trans              &trans             &trans           &trans       &trans           &trans
                         >;
     };
@@ -148,13 +148,13 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // -----------------------------------------------------------------------------------------
 // |      |BRIUP|  ^  |     |     |  \  |   |PgUp | Home|  ↑  | End |VOLUP|      |
 // |      |CAPLO|     |  <  |  >  |  `  |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
-// |      |BRIDO|  °  |     |  #  |  |  |   |     |     |     |     |MUTE |      |
+// |      |BRIDO|  °  |     |  _  |  |  |   |     |     |     |     |MUTE |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
-   &none &kp C_BRI_UP         &kp DE_CARET  &none             &none              &kp DE_BSLH    &kp PG_UP &kp HOME &kp UP           &kp END          &kp C_VOL_UP       &none
-   &none &caps_word           &kp LALT      &hrml LSHFT DE_LT &kp DE_GT          &kp DE_GRAVE   &kp PG_DN &kp LEFT &hrmr RSHFT DOWN &hrmr RALT RIGHT &kp C_VOL_DN       &none
-   &none &brml LCTRL C_BRI_DN &kp DE_DEGREE &none             &brml LCMD DE_HASH &kp DE_PIPE    &none     &kp RCMD &none            &none            &brmr RCTRL C_MUTE &none
-                                            &trans            &trans             &trans         &trans    &trans   &trans
+   &none &kp C_BRI_UP         &kp DE_CARET  &none             &none               &kp DE_BSLH    &kp PG_UP &kp HOME &kp UP           &kp END          &kp C_VOL_UP       &none
+   &none &caps_word           &kp LALT      &hrml LSHFT DE_LT &kp DE_GT           &kp DE_GRAVE   &kp PG_DN &kp LEFT &hrmr RSHFT DOWN &hrmr RALT RIGHT &kp C_VOL_DN       &none
+   &none &brml LCTRL C_BRI_DN &kp DE_DEGREE &none             &brml LCMD DE_UNDER &kp DE_PIPE    &none     &kp RCMD &none            &none            &brmr RCTRL C_MUTE &none
+                                            &trans            &trans              &trans         &trans    &trans   &trans
                         >;
     };
 
@@ -183,7 +183,7 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
                         bindings = <
    &none &none        &none        &none        &none      &none            &none   &none  &none &none &none    &none
    &none &none        &none        &none        &none      &studio_unlock   &none   &none  &none &none &none    &none
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &tog DHO &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bt BT_CLR_ALL   &locscr &none  &none &none &tog QWE &none
                                    &trans       &trans     &trans           &trans  &trans &trans
                         >;
     };
