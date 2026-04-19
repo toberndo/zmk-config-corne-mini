@@ -101,14 +101,14 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
     dhorf_layer {
       display-name = "Dhorf";
 // -----------------------------------------------------------------------------------------
-// |      |  Q  |  L  |  H  |  K  |  B  |   |  Y  |  F  |  O  |  U  |  '  |      |
+// |      |  V  |  L  |  H  |  K  |  Q  |   |  Y  |  F  |  O  |  U  |  '  |      |
 // |      |  S  |  R  |  N  |  T  |  W  |   |  P  |  C  |  E  |  I  |  A  |      |
-// |      |  Z  |  X  |  M  |  D  |  V  |   |  J  |  G  |  ,  |  .  | RET |      |
+// |      |  Z  |  X  |  M  |  D  |  B  |   |  J  |  G  |  ,  |  .  | RET |      |
 //                    | ESC | TAB |BSPC |   |SPACE| DEL |GLOBE|
                         bindings = <
-   &none &kp Q            &kp L        &kp H         &kp K        &kp B          &kp DE_Y      &kp F        &ooe          &uue         &kp DE_SQT      &none
+   &none &kp V            &kp L        &kp H         &kp K        &kp Q          &kp DE_Y      &kp F        &ooe          &uue         &kp DE_SQT      &none
    &none &ssz             &hrml LALT R &hrml LSHFT N &kp T        &kp W          &kp P         &kp C        &hrmr RSHFT E &hrmr RALT I &aae            &none
-   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp V          &kp J         &brmr RCMD G &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL RET &none
+   &none &brml LCTRL DE_Z &kp X        &kp M         &brml LCMD D &kp B          &kp J         &brmr RCMD G &kp DE_COMMA  &kp DE_DOT   &brmr RCTRL RET &none
                                        &lt FUN ESC   &lt NAV TAB  &lt SYM BSPC   &lt SYM SPACE &lt NAV DEL  &kp GLOBE
                         >;
     };
