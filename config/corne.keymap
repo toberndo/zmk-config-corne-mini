@@ -49,7 +49,7 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 &lt {
   flavor = "balanced";
   tapping-term-ms = <250>;
-  quick-tap-ms = <175>;
+  quick-tap-ms = <200>;
 };
 
 &caps_word {
@@ -94,6 +94,14 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
                 <&macro_tap &kp Q>,
                 <&macro_release &kp RCTRL &kp RCMD>;
     };
+    scrsht: screen_shot {
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        bindings =
+                <&macro_press &kp LCMD &kp LSHFT>,
+                <&macro_tap &kp DE_N4>,
+                <&macro_release &kp LCMD &kp LSHFT>;
+    };
   };
 
   keymap {
@@ -134,12 +142,12 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // |      |  §  |  $  |  {  |  }  |  %  |   |  /  |  7  |  8  |  9  |  *  |      |
 // |      |  !  |  "  |  (  |  )  |  ?  |   |  =  |  4  |  5  |  6  |  0  |      |
 // |      |  ´  |  &  |  [  |  ]  |  #  |   |  +  |  1  |  2  |  3  |  -  |      |
-//                    |     |     |     |   |     |     |     |
+//                    |     |     |SPACE|   |BSPC |     |     |
                         bindings = <
    &none &kp DE_SECT          &kp DE_DOLLAR     &kp DE_LBRC         &kp DE_RBRC        &kp DE_PERCENT   &kp DE_SLASH &kp DE_N7        &kp DE_N8         &kp DE_N9        &kp DE_STAR  &none
    &none &kp DE_EXCL          &hrml LALT DE_DQT &hrml LSHFT DE_LPAR &kp DE_RPAR        &kp DE_QMARK     &kp DE_EQUAL &kp DE_N4        &hrmr RSHFT DE_N5 &hrmr RALT DE_N6 &kp DE_N0    &none
    &none &brml LCTRL DE_ACUTE &kp DE_AMPS       &kp DE_LBKT         &brml LCMD DE_RBKT &kp DE_HASH      &kp DE_PLUS  &brmr RCMD DE_N1 &kp DE_N2         &kp DE_N3        &kp DE_MINUS &none
-                                                &trans              &trans             &trans           &trans       &trans           &trans
+                                                &trans              &trans             &kp SPACE        &kp BSPC     &trans           &trans
                         >;
     };
 
@@ -148,12 +156,12 @@ MAKE_HRM(hrmr, &kp, &kp, KEYS_L THUMBS_L)
 // -----------------------------------------------------------------------------------------
 // |      |BRIUP|  ^  |     |     |  \  |   |PgUp | Home|  ↑  | End |VOLUP|      |
 // |      |CAPLO|     |  <  |  >  |  `  |   |PgDn |  ←  |  ↓  |  →  |VOLDO|      |
-// |      |BRIDO|  °  |     |  _  |  |  |   |     |     |     |     |MUTE |      |
+// |      |BRIDO|  °  |     |  _  |  |  |   |     |     |SHOT |     |MUTE |      |
 //                    |     |     |     |   |     |     |     |
                         bindings = <
    &none &kp C_BRI_UP         &kp DE_CARET  &none             &none               &kp DE_BSLH    &kp PG_UP &kp HOME &kp UP           &kp END          &kp C_VOL_UP       &none
    &none &caps_word           &kp LALT      &hrml LSHFT DE_LT &kp DE_GT           &kp DE_GRAVE   &kp PG_DN &kp LEFT &hrmr RSHFT DOWN &hrmr RALT RIGHT &kp C_VOL_DN       &none
-   &none &brml LCTRL C_BRI_DN &kp DE_DEGREE &none             &brml LCMD DE_UNDER &kp DE_PIPE    &none     &kp RCMD &none            &none            &brmr RCTRL C_MUTE &none
+   &none &brml LCTRL C_BRI_DN &kp DE_DEGREE &none             &brml LCMD DE_UNDER &kp DE_PIPE    &none     &kp RCMD &scrsht          &none            &brmr RCTRL C_MUTE &none
                                             &trans            &trans              &trans         &trans    &trans   &trans
                         >;
     };
