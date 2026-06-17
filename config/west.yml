@@ -2,15 +2,19 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: toberndo
+      url-base: https://github.com/toberndo
     - name: urob
       url-base: https://github.com/urob
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
+    # csv-log branch only: zmk fork that adds CONFIG_ZMK_EVENT_CSV_LOG (based on
+    # v0.3-branch). Revert to remote: zmkfirmware / revision: v0.3 for normal builds.
     - name: zmk
-      remote: zmkfirmware
+      remote: toberndo
       import: app/west.yml
-      revision: v0.3
+      revision: feat/csv-event-logger
     - name: zmk-helpers
       remote: urob
       revision: v0.3

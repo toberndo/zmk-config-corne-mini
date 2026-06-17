@@ -26,3 +26,12 @@ include:
     shield: corne_right
   - board: nice_nano_v2
     shield: settings_reset
+  # Temporary logging build for hold-tap timing analysis (see zmk-holdtap-tuner).
+  # Flash this onto the central (left) half, capture over USB with tio, then
+  # reflash the normal corne_left firmware. Requires config/west.yml to point at
+  # the toberndo/zmk fork branch that contains CONFIG_ZMK_EVENT_CSV_LOG.
+  - board: nice_nano_v2
+    shield: corne_left
+    snippet: zmk-usb-logging
+    cmake-args: -DCONFIG_ZMK_EVENT_CSV_LOG=y -DCONFIG_ZMK_LOGGING_MINIMAL=y
+    artifact-name: corne_left_csvlog
